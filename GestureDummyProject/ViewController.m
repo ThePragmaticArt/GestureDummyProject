@@ -9,6 +9,9 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (strong, nonatomic) IBOutlet UIButton *button;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGestureRecognizer;
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *swipeGestureRecognizer;
 
 @end
 
@@ -17,7 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	[self.tapGestureRecognizer requireGestureRecognizerToFail:self.swipeGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -26,4 +29,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)pressedButton:(UIButton *)sender
+{
+    CGFloat red = (rand() / (double)INT_MAX);
+    CGFloat green = (rand()/(double)INT_MAX);
+    CGFloat blue = (rand()/(double)INT_MAX);
+    sender.tintColor = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+}
+- (IBAction)swipeGestureDetected:(UISwipeGestureRecognizer *)sender
+{
+    NSLog(@"Swipping");
+}
+
+
+- (IBAction)tapGestureDetected:(UITapGestureRecognizer *)sender
+{
+    NSLog(@"Tapped");
+    [self pressedButton:self.button];
+}
 @end
